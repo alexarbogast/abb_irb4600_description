@@ -3,25 +3,40 @@
     <xacro:macro name="abb_irb4600_40_255" params="prefix">
         <!-- link list -->
         <link name="${prefix}base_link">
-            <visual name="visual">
+            <visual>
                 <geometry>
                     <mesh filename="package://abb_irb4600_description/meshes/visual/base_link.dae"/>
                 </geometry>
             </visual>
+            <collision>
+                <geometry>
+                    <mesh filename="package://abb_irb4600_description/meshes/collision/base_link_collision.stl"/>
+                </geometry>
+            </collision>
         </link>
         <link name="${prefix}link_1">
-            <visual name="visual">
+            <visual>
                 <geometry>
                     <mesh filename="package://abb_irb4600_description/meshes/visual/link1.dae"/>
                 </geometry>
             </visual>
+            <collision>
+                <geometry>
+                    <mesh filename="package://abb_irb4600_description/meshes/collision/link1_collision.stl"/>
+                </geometry>
+            </collision>
         </link>
         <link name="${prefix}link_2">
-            <visual name="visual">
+            <visual>
                 <geometry>
                     <mesh filename="package://abb_irb4600_description/meshes/visual/link2.dae"/>
                 </geometry>
             </visual>
+            <collision>
+                <geometry>
+                    <mesh filename="package://abb_irb4600_description/meshes/collision/link2_collision.stl"/>
+                </geometry>
+            </collision>
         </link>
         <link name="${prefix}link_3">
             <visual name="visual">
@@ -29,6 +44,11 @@
                     <mesh filename="package://abb_irb4600_description/meshes/visual/link3.dae"/>
                 </geometry>
             </visual>
+            <collision>
+                <geometry>
+                    <mesh filename="package://abb_irb4600_description/meshes/collision/link3_collision.stl"/>
+                </geometry>
+            </collision>
         </link>
         <link name="${prefix}link_4">
             <visual name="visual">
@@ -36,6 +56,11 @@
                     <mesh filename="package://abb_irb4600_description/meshes/visual/link4.dae"/>
                 </geometry>
             </visual>
+            <collision>
+                <geometry>
+                    <mesh filename="package://abb_irb4600_description/meshes/collision/link4_collision.stl"/>
+                </geometry>
+            </collision>
         </link>
         <link name="${prefix}link_5">
             <visual name="visual">
@@ -43,6 +68,11 @@
                     <mesh filename="package://abb_irb4600_description/meshes/visual/link5.dae"/>
                 </geometry>
             </visual>
+            <collision>
+                <geometry>
+                    <mesh filename="package://abb_irb4600_description/meshes/collision/link5_collision.stl"/>
+                </geometry>
+            </collision>
         </link>
         <link name="${prefix}link_6">
             <visual name="visual">
@@ -50,6 +80,11 @@
                     <mesh filename="package://abb_irb4600_description/meshes/visual/link6.dae"/>
                 </geometry>
             </visual>
+            <collision>
+                <geometry>
+                    <mesh filename="package://abb_irb4600_description/meshes/collision/link6_collision.stl"/>
+                </geometry>
+            </collision>
         </link>        
         <!-- end of link list-->
 
