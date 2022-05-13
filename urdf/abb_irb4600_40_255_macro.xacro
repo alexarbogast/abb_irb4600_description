@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:macro name="abb_irb4600_40_255" params="prefix">
+        <!-- link list -->
+        <link name="${prefix}base_link">
+            <visual name="visual">
+                <geometry>
+                    <mesh filename="package://abb_irb4600_description/meshes/visual/base_link.dae"/>
+                </geometry>
+            </visual>
+        </link>
+        <link name="${prefix}link_1">
+            <visual name="visual">
+                <geometry>
+                    <mesh filename="package://abb_irb4600_description/meshes/visual/link1.dae"/>
+                </geometry>
+            </visual>
+        </link>
+        <link name="${prefix}link_2">
+            <visual name="visual">
+                <geometry>
+                    <mesh filename="package://abb_irb4600_description/meshes/visual/link2.dae"/>
+                </geometry>
+            </visual>
+        </link>
+        <link name="${prefix}link_3">
+            <visual name="visual">
+                <geometry>
+                    <mesh filename="package://abb_irb4600_description/meshes/visual/link3.dae"/>
+                </geometry>
+            </visual>
+        </link>
+        <link name="${prefix}link_4">
+            <visual name="visual">
+                <geometry>
+                    <mesh filename="package://abb_irb4600_description/meshes/visual/link4.dae"/>
+                </geometry>
+            </visual>
+        </link>
+        <link name="${prefix}link_5">
+            <visual name="visual">
+                <geometry>
+                    <mesh filename="package://abb_irb4600_description/meshes/visual/link5.dae"/>
+                </geometry>
+            </visual>
+        </link>
+        <link name="${prefix}link_6">
+            <visual name="visual">
+                <geometry>
+                    <mesh filename="package://abb_irb4600_description/meshes/visual/link6.dae"/>
+                </geometry>
+            </visual>
+        </link>        
+        <!-- end of link list-->
+
+        <!-- joint list -->
+        <joint type="revolute" name="${prefix}joint_1">
+            <origin xyz="0 0 0.495" rpy="0 0 0"/>
+            <axis xyz="0 0 1"/>
+            <parent link="${prefix}base_link"/>
+            <child link="${prefix}link_1"/>
+            <limit effort="0" lower="${radians(-180)}" upper="${radians(180)}" velocity="${radians(175)}"/>
+        </joint>
+        <joint type="revolute" name="${prefix}joint_2">
+            <origin xyz="0.175 0 0" rpy="${radians(-90)} ${radians(-90)} 0"/>
+            <axis xyz="0 0 1"/>
+            <parent link="${prefix}link_1"/>
+            <child link="${prefix}link_2"/>
+            <limit effort="0" lower="${radians(-90)}" upper="${radians(150)}" velocity="${radians(175)}"/>
+        </joint>
+        <joint type="revolute" name="${prefix}joint_3">
+            <origin xyz="1.095 0 0" rpy="0 0 0"/>
+            <axis xyz="0 0 1"/>
+            <parent link="${prefix}link_2"/>
+            <child link="${prefix}link_3"/>
+            <limit effort="0" lower="${radians(-180)}" upper="${radians(75)}" velocity="${radians(175)}"/>
+        </joint>
+        <joint type="revolute" name="${prefix}joint_4">
+            <origin xyz="0.175 0.3306 0" rpy="${radians(-90)} 0 0"/>
+            <axis xyz="0 0 1"/>
+            <parent link="${prefix}link_3"/>
+            <child link="${prefix}link_4"/>
+            <limit effort="0" lower="${radians(-400)}" upper="${radians(400)}" velocity="${radians(250)}"/>
+        </joint>
+        <joint type="revolute" name="${prefix}joint_5">
+            <origin xyz="0 0 0.9385" rpy="${radians(-90)} 0 0"/>
+            <axis xyz="0 0 1"/>
+            <parent link="${prefix}link_4"/>
+            <child link="${prefix}link_5"/>
+            <limit effort="0" lower="${radians(-125)}" upper="${radians(120)}" velocity="${radians(250)}"/>
+        </joint>
+        <joint type="revolute" name="${prefix}joint_6">
+            <origin xyz="0 0 0" rpy="${radians(90)} 0 0"/>
+            <axis xyz="0 0 1"/>
+            <parent link="${prefix}link_5"/>
+            <child link="${prefix}link_6"/>
+            <limit effort="0" lower="${radians(-400)}" upper="${radians(400)}" velocity="${radians(360)}"/>
+        </joint>
+        <!-- end of joint list -->
+
+        <!-- 'base' frame: base_link to ABB World Coordinates transform  -->
+        <link name="${prefix}base" />
+        <joint name="${prefix}base_link-base" type="fixed">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <child link="${prefix}base_link"/>
+            <parent link="${prefix}base"/>
+        </joint>
+
+        <!-- ROS-Industrial 'flange' frame: attachment point for EEF models -->
+        <link name="${prefix}flange"/>
+        <joint type="fixed" name="${prefix}joint_6-flange">
+            <origin xyz="0 0 0.135" rpy="0 0 0"/>
+            <parent link="${prefix}link_6"/>
+            <child link="${prefix}flange"/>
+        </joint>
+
+        <!-- ROS-Industrial 'tool0' frame: all-zeros tool frame -->
+        <link name="${prefix}tool0" />
+        <joint name="${prefix}link_6-tool0" type="fixed">
+            <origin xyz="0 0 0" rpy="0 ${radians(90)} 0" />
+            <parent link="${prefix}flange" />
+            <child link="${prefix}tool0" />
+        </joint>
+    </xacro:macro>
+</robot>
