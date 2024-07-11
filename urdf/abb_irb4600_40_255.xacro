@@ -1,5 +1,15 @@
 <?xml version="1.0" ?>
 <robot name="abb_irb4600_40_255" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:arg name="prefix" default=""/>
   <xacro:include filename="$(find abb_irb4600_description)/urdf/abb_irb4600_40_255_macro.xacro"/>
-  <xacro:abb_irb4600_40_255 prefix=""/>
+  <xacro:abb_irb4600_40_255 prefix="$(arg prefix)"/>
+
+  <!-- 'world' frame: default pose reference frame -->
+  <link name="world" />
+  <joint name="world-$(arg prefix)base_link" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <parent link="world"/>
+    <child link="$(arg prefix)base_link"/>
+  </joint>
 </robot>
