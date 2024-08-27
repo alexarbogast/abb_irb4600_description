@@ -1,4 +1,29 @@
 <?xml version="1.0"?>
+<!--
+  Copyright 2020 Jonathan Meyer, Rik Tonnaer, Levi Armstrong
+  Copyright 2024 Alex Arbogast
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  ___
+
+  This file originated from `irb4600_40_255_macro.xacro` in the
+  ros_industrial/abb_experimental repository.
+  (https://github.com/ros-industrial/abb_experimental)
+
+  The robot description has been modified to include the new mesh files and
+  remove the dependency on abb_resources to provide a stand-alone robot
+  description package.
+-->
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:macro name="abb_irb4600_40_255" params="prefix">
     <!-- link list -->
@@ -86,7 +111,7 @@
         </geometry>
       </collision>
     </link>
-    <!-- end of link list-->
+    <!-- end of link list -->
 
     <!-- joint list -->
     <joint type="revolute" name="${prefix}joint_1">
