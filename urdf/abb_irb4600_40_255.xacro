@@ -34,8 +34,7 @@
 
   <xacro:include filename="$(find abb_irb4600_description)/urdf/abb_irb4600_40_255_macro.xacro"/>
   <xacro:abb_irb4600_40_255 prefix="$(arg prefix)"
-    initial_positions_file="$(arg initial_positions_file)"
-    joint_limits_parameters_file="$(arg joint_limits_file)"/>
+    joint_limits_file="$(arg joint_limits_file)"/>
 
   <!-- 'world' frame - default pose reference frame -->
   <link name="world" />
@@ -49,7 +48,10 @@
   <xacro:if value="$(arg include_hardware)">
     <xacro:include
       filename="$(find abb_irb4600_description)/urdf/abb_irb4600_40_255.ros2_control.xacro"/>
-    <xacro:abb_irb_4600_ros2_control prefix="$(arg prefix)"
-      use_mock_hardware="$(arg use_mock_hardware)"/>
+    <xacro:abb_irb4600_ros2_control prefix="$(arg prefix)"
+      use_mock_hardware="$(arg use_mock_hardware)"
+      initial_positions_file="$(arg initial_positions_file)"
+      joint_limits_file="$(arg joint_limits_file)"/>
+
   </xacro:if>
 </robot>

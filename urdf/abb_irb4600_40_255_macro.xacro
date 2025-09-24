@@ -27,11 +27,10 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:macro name="abb_irb4600_40_255" params="
     prefix
-    initial_positions_file:='$(find abb_irb4600_description)/config/initial_positions_file.yaml'
-    joint_limits_parameters_file:='$(find abb_irb4600_description)/config/joint_limits.yaml'
+    joint_limits_file
   ">
 
-    <xacro:property name="joint_limits_parameters" value="${xacro.load_yaml(joint_limits_parameters_file)}"/>
+    <xacro:property name="joint_limits_parameters" value="${xacro.load_yaml(joint_limits_file)}"/>
     <xacro:property name="joint_limits" value="${joint_limits_parameters['joint_limits']}"/>
 
     <!-- link list -->
