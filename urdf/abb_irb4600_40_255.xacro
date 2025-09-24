@@ -45,4 +45,11 @@
     <parent link="world"/>
     <child link="$(arg prefix)base_link"/>
   </joint>
+
+  <xacro:if value="$(arg include_hardware)">
+    <xacro:include
+      filename="$(find abb_irb4600_description)/urdf/abb_irb4600_40_255.ros2_control.xacro"/>
+    <xacro:abb_irb_4600_ros2_control prefix="$(arg prefix)"
+      use_mock_hardware="$(arg use_mock_hardware)"/>
+  </xacro:if>
 </robot>
