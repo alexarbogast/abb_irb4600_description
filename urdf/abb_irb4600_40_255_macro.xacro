@@ -25,7 +25,15 @@
   description package.
 -->
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:macro name="abb_irb4600_40_255" params="prefix">
+  <xacro:macro name="abb_irb4600_40_255" params="
+    prefix
+    initial_positions_file:='$(find abb_irb4600_description)/config/initial_positions_file.yaml'
+    joint_limits_parameters_file:='$(find abb_irb4600_description)/config/joint_limits.yaml'
+  ">
+
+    <xacro:property name="joint_limits_parameters" value="${xacro.load_yaml(joint_limits_parameters_file)}"/>
+    <xacro:property name="joint_limits" value="${joint_limits_parameters['joint_limits']}"/>
+
     <!-- link list -->
     <link name="${prefix}base_link">
       <visual>
@@ -114,51 +122,75 @@
     <!-- end of link list -->
 
     <!-- joint list -->
-    <joint type="revolute" name="${prefix}joint_1">
+    <joint name="${prefix}joint_1" type="revolute">
       <origin xyz="0 0 0.495" rpy="0 0 0"/>
       <axis xyz="0 0 1"/>
       <parent link="${prefix}base_link"/>
       <child link="${prefix}link_1"/>
-      <limit effort="0" lower="${radians(-180)}" upper="${radians(180)}" velocity="${radians(175)}"/>
+      <limit
+        effort="${joint_limits['joint_1']['max_effort']}"
+        lower="${joint_limits['joint_1']['min_position']}"
+        upper="${joint_limits['joint_1']['max_position']}"
+        velocity="${joint_limits['joint_1']['max_velocity']}"/>
     </joint>
-    <joint type="revolute" name="${prefix}joint_2">
+    <joint name="${prefix}joint_2" type="revolute">
       <origin xyz="0.175 0 0" rpy="0 0 0"/>
       <axis xyz="0 1 0"/>
       <parent link="${prefix}link_1"/>
       <child link="${prefix}link_2"/>
-      <limit effort="0" lower="${radians(-90)}" upper="${radians(150)}" velocity="${radians(175)}"/>
+      <limit
+        effort="${joint_limits['joint_2']['max_effort']}"
+        lower="${joint_limits['joint_2']['min_position']}"
+        upper="${joint_limits['joint_2']['max_position']}"
+        velocity="${joint_limits['joint_2']['max_velocity']}"/>
     </joint>
-    <joint type="revolute" name="${prefix}joint_3">
+    <joint name="${prefix}joint_3" type="revolute">
       <origin xyz="0 0 1.095" rpy="0 0 0"/>
       <axis xyz="0 1 0"/>
       <parent link="${prefix}link_2"/>
       <child link="${prefix}link_3"/>
-      <limit effort="0" lower="${radians(-180)}" upper="${radians(75)}" velocity="${radians(175)}"/>
+      <limit
+        effort="${joint_limits['joint_3']['max_effort']}"
+        lower="${joint_limits['joint_3']['min_position']}"
+        upper="${joint_limits['joint_3']['max_position']}"
+        velocity="${joint_limits['joint_3']['max_velocity']}"/>
     </joint>
-    <joint type="revolute" name="${prefix}joint_4">
+    <joint name="${prefix}joint_4" type="revolute">
       <origin xyz="0 0 0.175" rpy="0 0 0"/>
       <axis xyz="1 0 0"/>
       <parent link="${prefix}link_3"/>
       <child link="${prefix}link_4"/>
-      <limit effort="0" lower="${radians(-400)}" upper="${radians(400)}" velocity="${radians(250)}"/>
+      <limit
+        effort="${joint_limits['joint_4']['max_effort']}"
+        lower="${joint_limits['joint_4']['min_position']}"
+        upper="${joint_limits['joint_4']['max_position']}"
+        velocity="${joint_limits['joint_4']['max_velocity']}"/>
     </joint>
-    <joint type="revolute" name="${prefix}joint_5">
+    <joint name="${prefix}joint_5" type="revolute">
       <origin xyz="1.270 0 0" rpy="0 0 0"/>
       <axis xyz="0 1 0"/>
       <parent link="${prefix}link_4"/>
       <child link="${prefix}link_5"/>
-      <limit effort="0" lower="${radians(-125)}" upper="${radians(120)}" velocity="${radians(250)}"/>
+      <limit
+        effort="${joint_limits['joint_5']['max_effort']}"
+        lower="${joint_limits['joint_5']['min_position']}"
+        upper="${joint_limits['joint_5']['max_position']}"
+        velocity="${joint_limits['joint_5']['max_velocity']}"/>
     </joint>
-    <joint type="revolute" name="${prefix}joint_6">
+    <joint name="${prefix}joint_6" type="revolute">
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <axis xyz="1 0 0"/>
       <parent link="${prefix}link_5"/>
       <child link="${prefix}link_6"/>
-      <limit effort="0" lower="${radians(-400)}" upper="${radians(400)}" velocity="${radians(360)}"/>
+      <limit
+        effort="${joint_limits['joint_6']['max_effort']}"
+        lower="${joint_limits['joint_6']['min_position']}"
+        upper="${joint_limits['joint_6']['max_position']}"
+        velocity="${joint_limits['joint_6']['max_velocity']}"/>
     </joint>
     <!-- end of joint list -->
 
-    <!-- 'base' frame: base_link to ABB World Coordinates transform  -->
+    <!-- 'base' frame - base_link to ABB World Coordinates transform  -->
     <link name="${prefix}base" />
     <joint name="${prefix}base_link-base" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -166,7 +198,7 @@
       <child link="${prefix}base"/>
     </joint>
 
-    <!-- ROS-Industrial 'flange' frame: attachment point for EEF models -->
+    <!-- ROS-Industrial 'flange' frame - attachment point for EEF models -->
     <link name="${prefix}flange"/>
     <joint type="fixed" name="${prefix}joint_6-flange">
       <origin xyz="0.135 0 0" rpy="0 0 0"/>
@@ -174,7 +206,7 @@
       <child link="${prefix}flange"/>
     </joint>
 
-    <!-- ROS-Industrial 'tool0' frame: all-zeros tool frame -->
+    <!-- ROS-Industrial 'tool0' frame - all-zeros tool frame -->
     <link name="${prefix}tool0" />
     <joint name="${prefix}link_6-tool0" type="fixed">
       <origin xyz="0 0 0" rpy="0 ${radians(90)} 0" />

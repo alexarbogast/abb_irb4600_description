@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="abb_irb_4600_ros2_control" params="
+    prefix
+    use_mock_hardware:=true
+    initial_positions_file:='$(find abb_irb4600_description)/config/initial_positions.yaml'
+    joint_limits_file:='$(find abb_irb4600_description)/config/joint_limits.yaml'
+  ">
+
+    <xacro:property
+      name="initial_positions"
+      value="${xacro.load_yaml(initial_positions_file)['initial_positions']}"/>
+
+    <xacro:property
+      name="joint_limits"
+      value="${xacro.load_yaml(joint_limits_file)['joint_limits']}"/>
+
+    <ros2_control name="${prefix}ros2_control" type="system">
+      <hardware>
+        <xacro:if value="${use_mock_hardware}">
+          <plugin>mock_components/GenericSystem</plugin>
+        </xacro:if>
+        <xacro:unless value="${use_mock_hardware}">
+          <!-- <plugin>hal_ros_control/HalHardware</plugin> -->
+        </xacro:unless>
+      </hardware>
+      <joint name="${prefix}joint_1">
+        <command_interface name="position">
+          <param name="min">${joint_limits['joint_1']['min_position']}</param>
+          <param name="max">${joint_limits['joint_1']['max_position']}</param>
+        </command_interface>
+        <state_interface name="position">
+          <param name="initial_value">${initial_positions['joint_1']}</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="${prefix}joint_2">
+        <command_interface name="position">
+          <param name="min">${joint_limits['joint_2']['min_position']}</param>
+          <param name="max">${joint_limits['joint_2']['max_position']}</param>
+        </command_interface>
+        <state_interface name="position">
+          <param name="initial_value">${initial_positions['joint_2']}</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="${prefix}joint_3">
+        <command_interface name="position">
+          <param name="min">${joint_limits['joint_3']['min_position']}</param>
+          <param name="max">${joint_limits['joint_3']['max_position']}</param>
+        </command_interface>
+        <state_interface name="position">
+          <param name="initial_value">${initial_positions['joint_3']}</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="${prefix}joint_4">
+        <command_interface name="position">
+          <param name="min">${joint_limits['joint_4']['min_position']}</param>
+          <param name="max">${joint_limits['joint_4']['max_position']}</param>
+        </command_interface>
+        <state_interface name="position">
+          <param name="initial_value">${initial_positions['joint_4']}</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="${prefix}joint_5">
+        <command_interface name="position">
+          <param name="min">${joint_limits['joint_5']['min_position']}</param>
+          <param name="max">${joint_limits['joint_5']['max_position']}</param>
+        </command_interface>
+        <state_interface name="position">
+          <param name="initial_value">${initial_positions['joint_5']}</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="${prefix}joint_6">
+        <command_interface name="position">
+          <param name="min">${joint_limits['joint_6']['min_position']}</param>
+          <param name="max">${joint_limits['joint_6']['max_position']}</param>
+        </command_interface>
+        <state_interface name="position">
+          <param name="initial_value">${initial_positions['joint_6']}</param>
+        </state_interface>
+        <state_interface name="velocity"/>
+      </joint>
+    </ros2_control>
+
+  </xacro:macro>
+</robot>

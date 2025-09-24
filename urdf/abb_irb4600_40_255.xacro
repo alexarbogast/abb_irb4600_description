@@ -25,10 +25,19 @@
 -->
 <robot name="abb_irb4600_40_255" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:arg name="prefix" default=""/>
-  <xacro:include filename="$(find abb_irb4600_description)/urdf/abb_irb4600_40_255_macro.xacro"/>
-  <xacro:abb_irb4600_40_255 prefix="$(arg prefix)"/>
+  <xacro:arg name="use_mock_hardware" default="true"/>
+  <xacro:arg name="include_hardware" default="true"/>
+  <xacro:arg name="initial_positions_file"
+    default="$(find abb_irb4600_description)/config/initial_positions.yaml"/>
+  <xacro:arg name="joint_limits_file"
+    default="$(find abb_irb4600_description)/config/joint_limits.yaml"/>
 
-  <!-- 'world' frame: default pose reference frame -->
+  <xacro:include filename="$(find abb_irb4600_description)/urdf/abb_irb4600_40_255_macro.xacro"/>
+  <xacro:abb_irb4600_40_255 prefix="$(arg prefix)"
+    initial_positions_file="$(arg initial_positions_file)"
+    joint_limits_parameters_file="$(arg joint_limits_file)"/>
+
+  <!-- 'world' frame - default pose reference frame -->
   <link name="world" />
   <joint name="world-$(arg prefix)base_link" type="fixed">
     <origin xyz="0 0 0" rpy="0 0 0"/>
