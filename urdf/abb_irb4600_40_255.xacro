@@ -27,6 +27,10 @@
   <xacro:arg name="prefix" default=""/>
   <xacro:arg name="use_mock_hardware" default="true"/>
   <xacro:arg name="include_hardware" default="true"/>
+  <xacro:arg name="use_fake_hardware" default="true"/>
+  <xacro:arg name="rws_ip" default="None"/>
+  <xacro:arg name="rws_port" default="80"/>
+  <xacro:arg name="configure_via_rws" default="true"/>
   <xacro:arg name="initial_positions_file"
     default="$(find abb_irb4600_description)/config/initial_positions.yaml"/>
   <xacro:arg name="joint_limits_file"
@@ -51,7 +55,10 @@
     <xacro:abb_irb4600_ros2_control prefix="$(arg prefix)"
       use_mock_hardware="$(arg use_mock_hardware)"
       initial_positions_file="$(arg initial_positions_file)"
-      joint_limits_file="$(arg joint_limits_file)"/>
+      joint_limits_file="$(arg joint_limits_file)"
+      rws_ip="$(arg rws_ip)"
+      rws_port="$(arg rws_port)"
+      configure_via_rws="$(arg configure_via_rws)"/>
 
   </xacro:if>
 </robot>

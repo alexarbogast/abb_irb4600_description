@@ -4,6 +4,9 @@
   <xacro:macro name="abb_irb4600_ros2_control" params="
     prefix
     use_mock_hardware:=true
+    rws_ip
+    rws_port
+    configure_via_rws:=true
     initial_positions_file
     joint_limits_file
   ">
@@ -22,7 +25,11 @@
           <plugin>mock_components/GenericSystem</plugin>
         </xacro:if>
         <xacro:unless value="${use_mock_hardware}">
-          <!-- <plugin>hal_ros_control/HalHardware</plugin> -->
+          <plugin>abb_hardware_interface/ABBSystemHardware</plugin>
+          <param name="configure_via_rws">${configure_via_rws}</param>
+          <param name="rws_port">${rws_port}</param>
+          <param name="rws_ip">${rws_ip}</param>
+          <param name="egm_port">6511</param>
         </xacro:unless>
       </hardware>
       <joint name="${prefix}joint_1">
@@ -30,6 +37,7 @@
           <param name="min">${joint_limits['joint_1']['min_position']}</param>
           <param name="max">${joint_limits['joint_1']['max_position']}</param>
         </command_interface>
+        <command_interface name="velocity"/>
         <state_interface name="position">
           <param name="initial_value">${initial_positions['joint_1']}</param>
         </state_interface>
@@ -40,6 +48,7 @@
           <param name="min">${joint_limits['joint_2']['min_position']}</param>
           <param name="max">${joint_limits['joint_2']['max_position']}</param>
         </command_interface>
+        <command_interface name="velocity"/>
         <state_interface name="position">
           <param name="initial_value">${initial_positions['joint_2']}</param>
         </state_interface>
@@ -50,6 +59,7 @@
           <param name="min">${joint_limits['joint_3']['min_position']}</param>
           <param name="max">${joint_limits['joint_3']['max_position']}</param>
         </command_interface>
+        <command_interface name="velocity"/>
         <state_interface name="position">
           <param name="initial_value">${initial_positions['joint_3']}</param>
         </state_interface>
@@ -60,6 +70,7 @@
           <param name="min">${joint_limits['joint_4']['min_position']}</param>
           <param name="max">${joint_limits['joint_4']['max_position']}</param>
         </command_interface>
+        <command_interface name="velocity"/>
         <state_interface name="position">
           <param name="initial_value">${initial_positions['joint_4']}</param>
         </state_interface>
@@ -70,6 +81,7 @@
           <param name="min">${joint_limits['joint_5']['min_position']}</param>
           <param name="max">${joint_limits['joint_5']['max_position']}</param>
         </command_interface>
+        <command_interface name="velocity"/>
         <state_interface name="position">
           <param name="initial_value">${initial_positions['joint_5']}</param>
         </state_interface>
@@ -80,6 +92,7 @@
           <param name="min">${joint_limits['joint_6']['min_position']}</param>
           <param name="max">${joint_limits['joint_6']['max_position']}</param>
         </command_interface>
+        <command_interface name="velocity"/>
         <state_interface name="position">
           <param name="initial_value">${initial_positions['joint_6']}</param>
         </state_interface>
